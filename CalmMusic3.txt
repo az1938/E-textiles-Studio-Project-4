@@ -1,0 +1,32 @@
+//CalmMusic3
+
+var seed = random(0xffff) 
+
+var xs
+function xorshift() {
+  xs ^= xs << 7
+  xs ^= xs >> 9
+  xs ^= xs << 8
+  return xs
+}
+
+function pseudorandomFraction() {
+  return xorshift() / 100 % 1
+}
+
+export function beforeRender(delta) {
+  xs = seed 
+  
+  t1 = time(5.4 / 65.536) // Used to fade each pixel in and out
+}
+
+export function render(index) {
+  h = pseudorandomFraction()
+
+  s = pseudorandomFraction()
+  s = 1 - s * s * s 
+
+  v = wave(t1 + pseudorandomFraction())
+  
+  hsv(h, 0.3, v * v)
+}

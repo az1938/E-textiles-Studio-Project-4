@@ -1,0 +1,16 @@
+//WindSmall
+
+export function beforeRender(delta) {
+  t1 = triangle(time(.1))  
+}
+
+export function render(index) {
+  pct = index / pixelCount
+  edge = clamp(triangle(pct) + t1 * 4 - 2, 0, 1)  
+  
+  h = edge * edge - .2 
+  
+  v = triangle(edge)    
+
+  hsv(0.6, 0.5, v)
+}

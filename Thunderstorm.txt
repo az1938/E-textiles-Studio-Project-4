@@ -1,0 +1,52 @@
+//Thunderstorm
+
+var hue = 0, saturation = 0, value = 1
+export function hsvPickerBoltColor(_h, _s, _v) {
+  hue = _h
+  saturation = _s
+  value = _v
+}
+
+fade = 20
+delayFactor = 20 
+resetDelayFactor = 1000 
+
+export function sliderBoltSpeed(_v) {
+  fade = 2 + _v * 13 
+  delayFactor = 15 + (1 - _v) * 15
+  resetDelayFactor = 1000 + (1 - _v) * 2000
+}
+
+boltMin = floor(pixelCount / 15)
+boltMax = ceil(pixelCount / 6)
+
+pixels = array(pixelCount)
+x = 0
+timer = 0
+
+export function beforeRender(delta) {
+  for (i = 0; i < pixelCount; i++)
+  pixels[i] -= (pixels[i] * fade * (delta / 1000)) + (1 >> 16)
+  
+  timer -= delta
+  
+  if (timer <= 0) {
+    boltSize = boltMin + random(boltMax - boltMin)
+    while (boltSize-- > 0 && x < pixelCount) {
+      pixels[x++] = 1  // Fill these pixels bright white
+    }
+
+    timer = random(delayFactor) + delayFactor / 5
+    timer *= timer 
+    
+    if (x >= pixelCount) {
+      x = 0
+      timer = random(resetDelayFactor) + resetDelayFactor/3
+    }
+  }
+}
+
+export function render(index) {
+  v = pixels[index]
+  hsv(hue, saturation, v * value)
+}

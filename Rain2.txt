@@ -1,0 +1,42 @@
+//Rain2
+
+var t2 
+numModes = 14 
+modes = array(numModes) 
+
+modes[0]  = (f, t) => (f + t) % 1 // Moving left
+modes[1]  = (f, t) => (1 + f - t) % 1 // Moving right
+modes[2]  = (f, t) => (f + triangle(t)) % 1 // Bounce back and forth
+modes[3]  = (f, t) => (f + wave(t)) % 1 // Smooth back and forth
+modes[4]  = (f, t) => square(f + t, .5) // A chaser 
+modes[5]  = (f, t) => (f + triangle(triangle(t) * t)) % 1 // Combining wave functions can create interesting effects
+modes[6]  = (f, t) => (f + wave(wave(t))) % 1 // Warbly movemovent
+modes[7]  = (f, t) => square(triangle(wave(t)) + f, .5) // Bouncing
+modes[8]  = (f, t) => wave(f + t) * wave(f + t2) // Times with different intervals create interesting waveform interactions
+modes[9]  = (f, t) => wave(wave(f + t) + wave(f - t2) + f - t) // Wave textures
+modes[10] = (f, t) => wave(f + wave(wave(t) + f / 4)) // Stretchy effect
+modes[11] = (f, t) => wave((f - 2) * (1 + wave(t))) * wave(wave(t2) + f) // Zoomed and blended
+modes[12] = (f, t) => 2 * triangle(f + wave(t)) - wave(f * .75 + wave(t2)) // Kinetic
+modes[13] = (f, t) => abs(triangle(f - triangle(t2)) - wave(f * 2 + triangle(t))) // Glitch conveyer belt
+
+export function beforeRender(delta) {
+  t = time(.05)  
+  t2 = time(.03) 
+  modeT = time(numModes * 0.6 / 65.536) 
+  mode = floor(modeT *  numModes) \
+  mode = 0
+}
+
+export function render(index) {
+
+  if (0<=index && index <=50)  {
+  v = modes[mode](4 * index / pixelCount, t)
+  hsv(0.57, 0.2, v)
+}
+
+  if (50<=index && index <=84)  {
+  v = modes[mode](4 * index / pixelCount, t)
+  hsv(0, 0, 0)
+}
+   
+}

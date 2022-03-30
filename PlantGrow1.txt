@@ -1,0 +1,36 @@
+//PlantGrow1
+
+export function render(index) {
+
+  if (32<=index && index <=49)  {
+  red = 0.4*time(.015*2.3)
+  green = time(.015*2.3)
+  blue = 0
+  rgb(red, green, blue)
+  }
+
+  if (0<=index && index <=18)  {
+  red = 0.4*time(.015*2.3)
+  green = time(.015*2.3)
+  blue = 
+  rgb(red, green, blue)
+  }
+
+  if (19<=index && index <=31)  {
+  red = green = blue = 0
+  rgb(red, green, blue)
+  }
+
+  if (50<=index && index <=66)  {
+  rgb(0.05*time(.015*2.3), 0.08, 0.01)
+  }
+
+  if (66<=index && index <=82)  {
+  rgb(0.05*time(.015*2.3), 0.08, 0.01)
+  }
+
+  if (19<=index && index <=31)  {
+  red = green = blue = 0
+  rgb(red, green, blue)
+  }
+}

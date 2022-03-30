@@ -1,0 +1,18 @@
+//CalmMusic1
+
+export function beforeRender(delta) {
+  t1 = time(.25)
+  t2 = time(.15)
+}
+
+export function render(index) {
+  h = index / (pixelCount / 2)  
+
+  s = wave(-index / 3 + t1)
+  s = 1 - s * s * s * s
+  
+  v = wave(index / 2 + t2) * wave(index / 5 - t2) + wave(index / 7 + t2)
+  v = v * v * v * v
+
+  hsv(h, 0.3, v)
+}
